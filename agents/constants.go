@@ -1,0 +1,13 @@
+package agents
+
+const (
+	// DefaultFee - default fee
+	DefaultFee = 20
+
+	// DefaultExecuteDuration - default execute duration
+	DefaultExecuteDuration = 100
+
+	PRVID = "0000000000000000000000000000000000000000000000000000000000000004"
+	PUSDTID = "716fd1009e2a1669caacc36891e707bfdf02590f96ebd897548e8963c95ebac0"
+	// PUSDTID = "00000000000000000000000000000000000000000000000000000000000000ff"
+)
