@@ -3,7 +3,7 @@ module portalfeeders
 go 1.13
 
 require (
-	github.com/0xkraken/incognito-sdk-golang v0.0.0-20201013033932-32c41dc0c4db
+	github.com/0xkraken/incognito-sdk-golang v0.0.0-20201112064017-374a7f511a21
 	github.com/blockcypher/gobcy v2.0.1+incompatible
 	github.com/btcsuite/btcd v0.21.0-beta
 	github.com/ebfe/keccak v0.0.0-20150115210727-5cc570678d1b // indirect

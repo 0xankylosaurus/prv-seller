@@ -3,6 +3,8 @@ package agents
 import (
 	"errors"
 	"fmt"
+	"github.com/0xkraken/incognito-sdk-golang/rpcclient"
+	"github.com/0xkraken/incognito-sdk-golang/transaction"
 	"math/big"
 	"portalfeeders/entities"
 	"time"
@@ -94,35 +96,51 @@ func (b *PRVSeller) getPRVRate() (uint64, error) {
 	return tokenPoolValueToBuy - newTokenPoolValueToBuy, nil
 }
 
-func (b *PRVSeller) sellPRV(sellAmt uint64) (*entities.PRVTradeRes, error) {
-	params := []interface{}{
+func (b *PRVSeller) sellPRV(sellAmt uint64) (string, error) {
+	//params := []interface{}{
+	//	b.SellerPrivKey,
+	//	map[string]string{
+	//		BurningAddress: fmt.Sprintf("%d", sellAmt),
+	//	},
+	//	100,
+	//	-1,
+	//	map[string]string{
+	//		"TokenIDToBuyStr":     PUSDTID,
+	//		"TokenIDToSellStr":    PRVID,
+	//		"SellAmount":          fmt.Sprintf("%d", sellAmt),
+	//		"MinAcceptableAmount": fmt.Sprintf("%d", MinAcceptableAmount),
+	//		"TradingFee":          "0",
+	//		"TraderAddressStr":    b.SellerAddress,
+	//	},
+	//}
+	//fmt.Println("huhu params: ", params)
+	//var prvTradeRes entities.PRVTradeRes
+	//err := b.RPCClient.RPCCall("createandsendtxwithprvcrosspooltradereq", params, &prvTradeRes)
+	//if err != nil {
+	//	return nil, err
+	//}
+	//
+	//if prvTradeRes.RPCError != nil {
+	//	b.Logger.Errorf("prvTrade: call RPC error, %v\n", prvTradeRes.RPCError.StackTrace)
+	//	return nil, errors.New(prvTradeRes.RPCError.Message)
+	//}
+	//return &prvTradeRes, nil
+
+	rpcClient := rpcclient.NewHttpClient(b.RPCClient.GetURL(), "", "", 0)
+	txID, err := transaction.CreateAndSendTxPRVCrossPoolTrade(
+		rpcClient,
 		b.SellerPrivKey,
-		map[string]string{
-			BurningAddress: fmt.Sprintf("%d", sellAmt),
-		},
-		100,
-		-1,
-		map[string]string{
-			"TokenIDToBuyStr":     PUSDTID,
-			"TokenIDToSellStr":    PRVID,
-			"SellAmount":          fmt.Sprintf("%d", sellAmt),
-			"MinAcceptableAmount": fmt.Sprintf("%d", MinAcceptableAmount),
-			"TradingFee":          "0",
-			"TraderAddressStr":    b.SellerAddress,
-		},
-	}
-	fmt.Println("huhu params: ", params)
-	var prvTradeRes entities.PRVTradeRes
-	err := b.RPCClient.RPCCall("createandsendtxwithprvcrosspooltradereq", params, &prvTradeRes)
+		PUSDTID,
+		sellAmt,
+		MinAcceptableAmount,
+		0, 100)
+
 	if err != nil {
-		return nil, err
+		b.Logger.Errorf("prvTrade: Create tx error, %v\n", err)
+		return "", err
 	}
 
-	if prvTradeRes.RPCError != nil {
-		b.Logger.Errorf("prvTrade: call RPC error, %v\n", prvTradeRes.RPCError.StackTrace)
-		return nil, errors.New(prvTradeRes.RPCError.Message)
-	}
-	return &prvTradeRes, nil
+	return txID, nil
 }
 
 func (b *PRVSeller) Execute() {
@@ -151,13 +169,13 @@ func (b *PRVSeller) Execute() {
 		return
 	}
 
-	res, err := b.sellPRV(PRVAmountToSellAtATime)
+	txID, err := b.sellPRV(PRVAmountToSellAtATime)
 	if err != nil {
 		b.Logger.Infof("sell prv failed with error: %v", err)
 		return
 	}
 
-	b.Logger.Errorf("sell prv successfully with tx: %s", res.Result.TxID)
+	b.Logger.Errorf("sell prv successfully with tx: %s", txID)
 
 	b.Counter++
 	b.Logger.Info("PRVSeller agent finished...")

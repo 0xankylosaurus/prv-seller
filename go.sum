@@ -1,5 +1,7 @@
 github.com/0xkraken/incognito-sdk-golang v0.0.0-20201013033932-32c41dc0c4db h1:VHJTlu5Vik/58QdtjRyT+kxtW997h9E1lWqh5LTT17s=
 github.com/0xkraken/incognito-sdk-golang v0.0.0-20201013033932-32c41dc0c4db/go.mod h1:A3+FjRrxU0PkUfVU5IC8EDNLeWrB//t8UXErYA+fSDM=
+github.com/0xkraken/incognito-sdk-golang v0.0.0-20201112064017-374a7f511a21 h1:QX3kmhLXjyKsYWpqzliVQ3Yft/5j6IRpynQdZaAYPyA=
+github.com/0xkraken/incognito-sdk-golang v0.0.0-20201112064017-374a7f511a21/go.mod h1:A3+FjRrxU0PkUfVU5IC8EDNLeWrB//t8UXErYA+fSDM=
 github.com/aead/siphash v1.0.1/go.mod h1:Nywa3cDsYNNK3gaciGTWPwHt0wlpNV15vwmswBAUSII=
 github.com/blockcypher/gobcy v2.0.1+incompatible h1:e9fIYPobnzIts70g31OxwBCKcCnGd4qQdbeIZNR7k2Q=
 github.com/blockcypher/gobcy v2.0.1+incompatible/go.mod h1:ZTXnnNN7aLqUWa8jTP65eEapWReeAIruKyorLxDRCBQ=
