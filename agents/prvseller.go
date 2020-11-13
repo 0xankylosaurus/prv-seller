@@ -161,6 +161,7 @@ func (b *PRVSeller) Execute() {
 		msg := fmt.Sprintf("PRVSeller: has a error, %v\n", err)
 		b.Logger.Errorf(msg)
 		// utils.SendSlackNotification(msg)
+		return
 	}
 	fmt.Println("haha prv rate: ", prvRate)
 
@@ -171,11 +172,11 @@ func (b *PRVSeller) Execute() {
 
 	txID, err := b.sellPRV(PRVAmountToSellAtATime)
 	if err != nil {
-		b.Logger.Infof("sell prv failed with error: %v", err)
+		b.Logger.Errorf("sell prv failed with error: %v", err)
 		return
 	}
 
-	b.Logger.Errorf("sell prv successfully with tx: %s", txID)
+	b.Logger.Infof("sell prv successfully with tx: %s", txID)
 
 	b.Counter++
 	b.Logger.Info("PRVSeller agent finished...")
