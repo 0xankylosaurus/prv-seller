@@ -43,7 +43,7 @@ func registerPRVSeller(
 	prvSeller := &agents.PRVSeller{}
 	prvSeller.ID = 1
 	prvSeller.Name = "prv-seller"
-	prvSeller.Frequency = 600
+	prvSeller.Frequency = 1800
 	prvSeller.Quit = make(chan bool)
 	prvSeller.RPCClient = utils.NewHttpClient("", os.Getenv("INCOGNITO_PROTOCOL"), os.Getenv("INCOGNITO_HOST"), os.Getenv("INCOGNITO_PORT")) // incognito chain rpc endpoint
 	prvSeller.Network = "test"

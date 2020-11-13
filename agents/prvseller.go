@@ -10,12 +10,6 @@ import (
 	"time"
 )
 
-const MaxSellPRVTime = 10
-const PRVRateLowerBound = 1400000                 // 1.4 usdt
-const PRVAmountToSellAtATime = uint64(250 * 1e9)  // 250 prv
-const MinAcceptableAmount = uint64(25 * 14 * 1e6) // 350 pusdt
-const BurningAddress = "12RxahVABnAVCGP3LGwCn8jkQxgw7z1x14wztHzn455TTVpi1wBq9YGwkRMQg3J4e657AbAnCvYCJSdA9czBUNuCKwGSRQt55Xwz8WA"
-
 type PRVSeller struct {
 	AgentAbs
 	Counter       uint
